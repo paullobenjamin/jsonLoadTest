@@ -1,0 +1,6 @@
+{
+    "src": {"$numberLong": {"min": 1,"max": 1000}},
+    "tg": {"$date": {"min": "2023-04-09", "max": "2023-04-09T23:59:59.999Z"}},
+    "name": "$name",
+    "email": "$email"
+ }

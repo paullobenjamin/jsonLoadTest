@@ -1,4 +1,4 @@
-from model import Model
+from model import MongoConnector
 from view import View
 
 class Controller:

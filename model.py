@@ -2,8 +2,8 @@
 import json
 from pymongo import MongoClient
 from faker import Faker
-from faker_schema import SchemaGenerator
-from .insert import insert_docs_multi_threaded
+from faker_schema import FakerSchema
+from insert import insert_docs_multi_threaded
 
 class MongoConnector:
     def __init__(self, uri, db_name, collection_name):
@@ -14,8 +14,8 @@ class MongoConnector:
     def generate_docs_from_model_file(self, model_file, num_docs, batch_size):
         with open(model_file, 'r') as f:
             model = json.load(f)
-        generator = SchemaGenerator(model)
+        generator = FakerSchema(model)
         fake = Faker()
-        docs = generator.generate(num_docs, fake=fake)
+        docs = generator.generate_fake(schema=model, iterations=int(num_docs))
         insert_docs_multi_threaded(docs, batch_size, self.mongo_connector)
         self.view.show_message(f"{num_docs} documents generated and inserted successfully!")
